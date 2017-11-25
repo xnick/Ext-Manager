@@ -7,12 +7,12 @@ from extension import Extension
 
 
 if __name__ == '__main__':
-    unixPath=os.path.expanduser("~/.config/google-chrome/Default/Extensions/**/manifest.json")
-
-    # result=os.listdir(unixPath)
+    path=os.path.expanduser("~/.config/google-chrome/Default/Extensions/**/manifest.json")
+    path=os.path.expanduser("~/AppData/Local/Google/Chrome/User\ Data/Default/Extensions")
+    # result=os.listdir(path)
     extensions=[]
 
-    manifests=glob.glob(unixPath,recursive=True)
+    manifests=glob.glob(path,recursive=True)
 
     for man in manifests:
         with open(man) as fman:
