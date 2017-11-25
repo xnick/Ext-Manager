@@ -7,8 +7,10 @@ from extension import Extension
 
 
 if __name__ == '__main__':
-    path=os.path.expanduser("~/.config/google-chrome/Default/Extensions/**/manifest.json")
-    path=os.path.expanduser("~/AppData/Local/Google/Chrome/User\ Data/Default/Extensions")
+    if os.name=="posix":
+        path=os.path.expanduser("~/.config/google-chrome/Default/Extensions/**/manifest.json")
+    elif os.name=="nt":
+        path=os.path.expanduser("~/AppData/Local/Google/Chrome/User\ Data/Default/Extensions")
     # result=os.listdir(path)
     extensions=[]
 
