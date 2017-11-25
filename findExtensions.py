@@ -2,6 +2,8 @@
 import os
 import glob
 from urllib.parse import urlparse
+import re
+
 from extension import Extension
 
 def findLinks(filename):
@@ -26,8 +28,13 @@ if __name__ == '__main__':
     extensionPaths=glob.glob(path)
 
     for extensionPath in extensionPaths:
-        extensions.append( Extension(extensionPath) )
+        try:
+            extensions.append( Extension(extensionPath) )
+        except ValueError:
+            pass
 
     for extension in extensions:
         print(extension.manifest["name"])
- 
+        for path in filter(lambda x: x.endswith('.js'), extension.filelist):
+            # print(path)
+            print(findLinks(path))

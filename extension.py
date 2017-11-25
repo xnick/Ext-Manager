@@ -10,7 +10,11 @@ class Extension(object):
 
     def __init__(self, path):
         self.path = path
-        for gpath in glob.glob(os.path.join(path, '*/manifest.json')):
+        print(path)
+        globbed=glob.glob(os.path.join(path, '*/manifest.json'))
+        if not globbed:
+            raise ValueError('No manifest found')
+        for gpath in globbed:
             with open(gpath) as mandir:
                 self.manifest=json.load(mandir)
         for root, dirs, files in os.walk(self.path):
