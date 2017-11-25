@@ -4,7 +4,12 @@ import glob
 
 from extension import Extension
 
-
+def findLinks(filename):
+    with open(filename,"r",encoding='utf8') as file:
+        output=file.read()
+        urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', output)
+        return(urls)
+        
 if __name__ == '__main__':
     if os.name=="posix":
         path=os.path.expanduser("~/.config/google-chrome/Default/Extensions/*")
@@ -20,3 +25,4 @@ if __name__ == '__main__':
 
     for extension in extensions:
         print(extension.manifest["name"])
+ 
