@@ -1,10 +1,16 @@
+import os
+import glob
+import json
+
 class Extension(object):
     """docstring for Extension."""
     manifest={}
     path=""
     files={}
 
-    def __init__(self, manifest, path, filelist):
-        self.manifest = manifest
+    def __init__(self, path):
         self.path = path
-        self.files = filelist
+        # path+version
+        for gpath in glob.glob(os.path.join(path, '*/manifest.json')):
+            with open(gpath) as mandir:
+                self.manifest=json.load(mandir)
