@@ -10,10 +10,10 @@ if __name__ == '__main__':
     if os.name=="posix":
         path=os.path.expanduser("~/.config/google-chrome/Default/Extensions/**/manifest.json")
     elif os.name=="nt":
-        path=os.path.expanduser("~/AppData/Local/Google/Chrome/User\ Data/Default/Extensions")
+        path=os.path.expanduser(r"~/AppData/Local/Google/Chrome/User Data/Default/Extensions/**/manifest.json")
     # result=os.listdir(path)
     extensions=[]
-
+    print(path)
     manifests=glob.glob(path,recursive=True)
 
     for man in manifests:
