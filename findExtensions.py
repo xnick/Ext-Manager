@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import glob
+import re
 
 from extension import Extension
 
@@ -9,7 +10,7 @@ def findLinks(filename):
         output=file.read()
         urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', output)
         return(urls)
-        
+
 if __name__ == '__main__':
     if os.name=="posix":
         path=os.path.expanduser("~/.config/google-chrome/Default/Extensions/*")
@@ -21,8 +22,13 @@ if __name__ == '__main__':
     extensionPaths=glob.glob(path)
 
     for extensionPath in extensionPaths:
-        extensions.append( Extension(extensionPath) )
+        try:
+            extensions.append( Extension(extensionPath) )
+        except ValueError:
+            pass
 
     for extension in extensions:
         print(extension.manifest["name"])
- 
+        for path in filter(lambda x: x.endswith('.js'), extension.filelist):
+            # print(path)
+            print(findLinks(path))
